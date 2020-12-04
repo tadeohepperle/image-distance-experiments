@@ -1,4 +1,5 @@
-const { fingerprint, fingerprintDistance } = require("./fingerprinter");
+const tadeofingerprinter = require("./fingerprinter");
+const henrikfingerprinter = require("./henrik");
 
 const fs = require("fs");
 
@@ -78,23 +79,24 @@ async function generateHTMLPageFromDistanceMatrix(
   await fs.promises.writeFile(htmlfilename, htmlstart);
 }
 
-async function run() {
+async function run(imageToCompare, fingerprinterModul) {
   // read all imageFileNamesFromFolder
 
   const IMAGEFOLDERPATH = "./images";
   let imageFilenames = await getImageFileNamesFromFolder(IMAGEFOLDERPATH);
   let distanceMatrix = await distanceMatrixFromImageFilePaths(
     imageFilenames,
-    fingerprint,
-    fingerprintDistance
+    fingerprinterModul.fingerprint,
+    fingerprinterModul.fingerprintDistance
   );
   console.log(distanceMatrix);
   await generateHTMLPageFromDistanceMatrix(
     distanceMatrix,
-    "./images/img1.jpg",
+    "./images/" + imageToCompare,
     "Tadeo"
   );
   console.log("done.");
 }
 
-run();
+//run("img1.jpg", henrikfingerprinter);
+run("img1.jpg", tadeofingerprinter);
