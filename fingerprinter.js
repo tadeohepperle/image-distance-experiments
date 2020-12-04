@@ -69,9 +69,9 @@ class Pixel {
     this.b = b;
     this.l = (maxrgb + minrgb) / 2;
     this.s = (maxrgb - minrgb) / (1 - Math.abs(2 * this.l - 1));
-    this.rvsgb = makemoreextreme((r * 2 - g - b + 2) / 4);
-    this.gvsrb = makemoreextreme((g * 2 - r - b + 2) / 4);
-    this.bvsrg = makemoreextreme((b * 2 - r - g + 2) / 4);
+    this.rvsgb = (r * 2 - g - b + 2) / 4;
+    this.gvsrb = (g * 2 - r - b + 2) / 4;
+    this.bvsrg = (b * 2 - r - g + 2) / 4;
 
     //this.pureb =
 
