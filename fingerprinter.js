@@ -52,6 +52,10 @@ function ImageToLowResolutionPixelList(img) {
   return pixelList;
 }
 
+function makemoreextreme(x) {
+  return 1 / Math.exp((-x + 0.5) * 10);
+}
+
 class Pixel {
   static properties = ["r", "g", "b", "l", "s", "rvsgb", "gvsrb", "bvsrg"];
   constructor(r = 0, g = 0, b = 0, posx = 0, posy = 0) {
@@ -65,9 +69,9 @@ class Pixel {
     this.b = b;
     this.l = (maxrgb + minrgb) / 2;
     this.s = (maxrgb - minrgb) / (1 - Math.abs(2 * this.l - 1));
-    this.rvsgb = (r - g - b + 2) / 3;
-    this.gvsrb = (g - r - b + 2) / 3;
-    this.bvsrg = (b - r - g + 2) / 3;
+    this.rvsgb = makemoreextreme((r - g - b + 2) / 3);
+    this.gvsrb = makemoreextreme((g - r - b + 2) / 3);
+    this.bvsrg = makemoreextreme((b - r - g + 2) / 3);
 
     //this.pureb =
 
