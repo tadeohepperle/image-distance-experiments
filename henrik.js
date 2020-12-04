@@ -32,7 +32,6 @@ class Pixel {
 function ImageToLowResolutionPixelList(img) {
   let pixelList = [];
   let imgsm = img.resize(LOWRESWIDTH, LOWRESHEIGHT);
-  imgsm.write("./imgsm.jpg");
   for (let i = 0; i < LOWRESWIDTH; i++) {
     for (let j = 0; j < LOWRESHEIGHT; j++) {
       let { r, g, b } = Jimp.intToRGBA(imgsm.getPixelColor(i, j));

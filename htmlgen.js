@@ -75,7 +75,7 @@ async function generateHTMLPageFromDistanceMatrix(
   let p = imageToCompare.split("/");
   let q = p[p.length - 1];
   q = q.split(".");
-  let htmlfilename = prefix + "_" + q[0] + ".html";
+  let htmlfilename = "html/" + prefix + "_" + q[0] + ".html";
   await fs.promises.writeFile(htmlfilename, htmlstart);
 }
 
