@@ -116,7 +116,8 @@ function DifferenceBetweenHistogramObjects(fingerprint1, fingerprint2) {
   });
   let average =
     keys.reduce((acc, key) => acc + differencesObject[key], 0) / keys.length;
-  return { average, differencesObject };
+  return average;
+  //return { average, differencesObject };
 }
 
 module.exports.fingerprint = ReadImageAndConvertToHistograms;
