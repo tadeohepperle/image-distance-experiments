@@ -43,8 +43,12 @@ class Pixel {
     return pixelList;
   }
 
-  img = readImageFromFile("/Users/henrikmader/Desktop/Images/image-distance-experiments/images/img1.jpg")
+  async function run () {
+    img = await readImageFromFile("./images/img1.jpg")
 
-  let pixelList = ImageToLowResolutionPixelList(img);
+    let pixelList = ImageToLowResolutionPixelList(img);
 
-  console.log(pixelList)
+    console.log(pixelList)
+  }
+
+  run ()
