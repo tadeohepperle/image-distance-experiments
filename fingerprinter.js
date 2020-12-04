@@ -2,8 +2,8 @@ const Jimp = require("jimp");
 var histogram = require("ascii-histogram");
 const c = console.log;
 const HISTOGRAMBARCOUNT = 20;
-const LOWRESWIDTH = 10;
-const LOWRESHEIGHT = 10;
+const LOWRESWIDTH = 8;
+const LOWRESHEIGHT = 8;
 
 async function ReadImageAndConvertToHistograms(imageFileName) {
   let img = await readImageFromFile(imageFileName);
@@ -29,7 +29,7 @@ function HistogramOfPixelListForKey(pixelList, property) {
   }
   for (let i = 0; i < pixelList.length; i++) {
     let val = pixelList[i][property];
-    let barIndex = Math.floor(val * HISTOGRAMBARCOUNT);
+    let barIndex = Math.floor(val * 0.999999 * HISTOGRAMBARCOUNT);
     hist[barIndex]++;
   }
   return hist;
@@ -74,6 +74,7 @@ class Pixel {
 }
 
 function EMDbetweenHistograms(inputhist1, inputhist2) {
+  //console.log(inputhist1, inputhist2);
   if (inputhist1.length != inputhist2.length)
     throw Error(
       "histograms must be of same length for emd!",
@@ -106,6 +107,7 @@ function EMDbetweenHistograms(inputhist1, inputhist2) {
 }
 
 function DifferenceBetweenHistogramObjects(fingerprint1, fingerprint2) {
+  //console.log(fingerprint1, fingerprint2);
   let keys = Object.keys(fingerprint1);
   differencesObject = {};
   keys.forEach((key) => {
