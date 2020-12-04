@@ -33,6 +33,7 @@ class Pixel {
   function ImageToLowResolutionPixelList(img) {
     let pixelList = [];
     let imgsm = img.resize(LOWRESWIDTH, LOWRESHEIGHT);
+    imgsm.write("./imgsm.jpg")
     for (let i = 0; i < LOWRESWIDTH; i++) {
       for (let j = 0; j < LOWRESHEIGHT; j++) {
         let { r, g, b } = Jimp.intToRGBA(imgsm.getPixelColor(i, j));
@@ -43,12 +44,40 @@ class Pixel {
     return pixelList;
   }
 
-  async function run () {
-    img = await readImageFromFile("./images/img1.jpg")
+
+  //Das sind dann meine beiden Fingerprints
+  async function makeFingerprint (path) {
+
+    img = await readImageFromFile(path)
 
     let pixelList = ImageToLowResolutionPixelList(img);
 
-    console.log(pixelList)
-  }
+    averageR = 0; 
+    averageG = 0; 
+    averageB = 0; 
 
-  run ()
+    for (let i = 0; i < pixelList.length; i++) {
+      averageR += pixelList[i].r;
+      averageG += pixelList[i].g;
+      averageB += pixelList[i].b;
+    }
+
+    averageR = averageR / pixelList.length;
+    averageG = averageG / pixelList.length;
+    averageB = averageB / pixelList.length;
+    return [averageR, averageG, averageB]
+  }
+  
+
+  async function compareFingerprint (averageArray1, averageArray2) {
+    let diffR = Math.abs(averageArray1 [0] - averageArray2 [0])
+    let diffG = Math.abs(averageArray1 [1] - averageArray2 [1])
+    let diffB = Math.abs(averageArray1 [2] - averageArray2 [2])
+
+
+    let averageDiff = (diffR + diffG + diffB) / 3;
+
+    console.log (averageDiff)
+
+    return averageDiff;
+  }
