@@ -20,6 +20,7 @@
   "homepage": "https://github.com/tadeohepperle/image-distance-experiments#readme",
   "dependencies": {
     "ascii-histogram": "^1.2.1",
-    "jimp": "^0.16.1"
+    "jimp": "^0.16.1",
+    "kimp": "^1.3.0"
   }
 }
