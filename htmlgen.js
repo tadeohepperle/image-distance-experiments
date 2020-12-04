@@ -63,7 +63,7 @@ async function generateHTMLPageFromDistanceMatrix(
 `;
 
   function ImageCardHTML(imageFilename, distance) {
-    return `<div class="row"><div class="col-md-6"><img src="${imageFilename}" style="width: 100%"/></div><div class="col-md-6"> <hr>Distance: <br> ${distance} </div></div>`;
+    return `<div class="row"><div class="col-md-6"><img src=".${imageFilename}" style="width: 100%"/></div><div class="col-md-6"> <hr>Distance: <br> ${distance} </div></div>`;
   }
 
   htmlstart += ImageCardHTML(imageToCompare, 0);
@@ -79,7 +79,7 @@ async function generateHTMLPageFromDistanceMatrix(
   await fs.promises.writeFile(htmlfilename, htmlstart);
 }
 
-async function run(imageToCompare, fingerprinterModul) {
+async function run(imageToCompare, fingerprinterModul, prefix) {
   // read all imageFileNamesFromFolder
 
   const IMAGEFOLDERPATH = "./images";
@@ -93,10 +93,10 @@ async function run(imageToCompare, fingerprinterModul) {
   await generateHTMLPageFromDistanceMatrix(
     distanceMatrix,
     "./images/" + imageToCompare,
-    "Tadeo"
+    prefix
   );
   console.log("done.");
 }
 
-//run("img1.jpg", henrikfingerprinter);
-run("img1.jpg", tadeofingerprinter);
+run("img1.jpg", henrikfingerprinter, "henrik");
+run("img1.jpg", tadeofingerprinter, "tadeo");
