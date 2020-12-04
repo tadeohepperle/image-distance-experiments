@@ -2,8 +2,8 @@ const Jimp = require("jimp");
 var histogram = require("ascii-histogram");
 const c = console.log;
 const HISTOGRAMBARCOUNT = 20;
-const LOWRESWIDTH = 8;
-const LOWRESHEIGHT = 8;
+const LOWRESWIDTH = 10;
+const LOWRESHEIGHT = 10;
 
 async function ReadImageAndConvertToHistograms(imageFileName) {
   let img = await readImageFromFile(imageFileName);
@@ -53,7 +53,7 @@ function ImageToLowResolutionPixelList(img) {
 }
 
 class Pixel {
-  static properties = ["r", "g", "b", "l", "s" /*"rg", "gb", "br" */];
+  static properties = ["r", "g", "b", "l", "s", "rvsgb", "gvsrb", "bvsrg"];
   constructor(r = 0, g = 0, b = 0, posx = 0, posy = 0) {
     r = r / 256;
     g = g / 256;
@@ -65,6 +65,10 @@ class Pixel {
     this.b = b;
     this.l = (maxrgb + minrgb) / 2;
     this.s = (maxrgb - minrgb) / (1 - Math.abs(2 * this.l - 1));
+    this.rvsgb = (r - g - b + 2) / 3;
+    this.gvsrb = (g - r - b + 2) / 3;
+    this.bvsrg = (b - r - g + 2) / 3;
+
     //this.pureb =
 
     // this.rg = (r - g + 1) / 2;
