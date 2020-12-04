@@ -1,0 +1,25 @@
+{
+  "name": "2020-12-04-image-distance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tadeohepperle/image-distance-experiments.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tadeohepperle/image-distance-experiments/issues"
+  },
+  "homepage": "https://github.com/tadeohepperle/image-distance-experiments#readme",
+  "dependencies": {
+    "ascii-histogram": "^1.2.1",
+    "jimp": "^0.16.1"
+  }
+}
