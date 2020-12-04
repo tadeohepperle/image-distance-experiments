@@ -98,5 +98,5 @@ async function run(imageToCompare, fingerprinterModul, prefix) {
   console.log("done.");
 }
 
-run("photo-1604880694285-9800b95789b8.jpg", henrikfingerprinter, "henrik");
-run("photo-1604880694285-9800b95789b8.jpg", tadeofingerprinter, "tadeo");
+run("h1.jpg", henrikfingerprinter, "henrik");
+run("h1.jpg", tadeofingerprinter, "tadeo");
