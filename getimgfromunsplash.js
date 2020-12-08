@@ -54,6 +54,14 @@ async function rungetjson() {
 
 //rungetjson();
 
+async function waitPromise(ms) {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      res();
+    }, ms);
+  });
+}
+
 async function rungetimgs() {
   const foldername = "unsplashimages";
   const fileSuffix = ".jpg";
@@ -62,6 +70,11 @@ async function rungetimgs() {
       url:
         "https://user-images.githubusercontent.com/1436181/68179592-93466000-ffe4-11e9-971f-9423aa6b743b.png",
       id: "test1",
+    },
+    {
+      url:
+        "https://user-images.githubusercontent.com/1436181/68179592-93466000-ffe4-11e9-971f-9423aa6b743b.png",
+      id: "test2",
     },
   ];
 
@@ -79,6 +92,7 @@ async function SaveImgFromURLToFile(url, filepath) {
   if (imageResponse && imageResponse.data) {
     let buffer = Buffer.from(imageResponse.data, "base64");
     await fs.promises.writeFile(filepath, buffer);
+    await waitPromise(300);
   }
 }
 
