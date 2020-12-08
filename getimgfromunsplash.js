@@ -2,6 +2,7 @@ const axios = require("axios");
 const unsplashAccessKey = "oyd5aqH_R5gEbi4uXIaKjPZyI-Na3-U724UoU5Sf4kM";
 const fs = require("fs");
 const { writeHeapSnapshot } = require("v8");
+const scrapperFromHenrik = require("./scrapper");
 
 async function getResultsFromUnsplash(query, page) {
   let url = `https://api.unsplash.com/search/collections?page=${page}&query=${query}`;
@@ -63,24 +64,28 @@ async function waitPromise(ms) {
 }
 
 async function rungetimgs() {
+  const filepath = "scrapedata/unsplash.json";
   const foldername = "unsplashimages";
   const fileSuffix = ".jpg";
-  let arrOfURLsAndIds = [
-    {
-      url:
-        "https://user-images.githubusercontent.com/1436181/68179592-93466000-ffe4-11e9-971f-9423aa6b743b.png",
-      id: "test1",
-    },
-    {
-      url:
-        "https://user-images.githubusercontent.com/1436181/68179592-93466000-ffe4-11e9-971f-9423aa6b743b.png",
-      id: "test2",
-    },
-  ];
+  let arrOfURLsAndIds = scrapperFromHenrik.readfileAndConvertToURL(filepath);
+  // [
+  //   {
+  //     url:
+  //       "https://user-images.githubusercontent.com/1436181/68179592-93466000-ffe4-11e9-971f-9423aa6b743b.png",
+  //     id: "test1",
+  //   },
+  //   {
+  //     url:
+  //       "https://user-images.githubusercontent.com/1436181/68179592-93466000-ffe4-11e9-971f-9423aa6b743b.png",
+  //     id: "test2",
+  //   },
+  // ];
 
   for (let i = 0; i < arrOfURLsAndIds.length; i++) {
     const el = arrOfURLsAndIds[i];
     await SaveImgFromURLToFile(el.url, `${foldername}/${el.id}${fileSuffix}`);
+    console.log(el);
+    await waitPromise(300);
   }
 }
 async function SaveImgFromURLToFile(url, filepath) {
@@ -92,7 +97,6 @@ async function SaveImgFromURLToFile(url, filepath) {
   if (imageResponse && imageResponse.data) {
     let buffer = Buffer.from(imageResponse.data, "base64");
     await fs.promises.writeFile(filepath, buffer);
-    await waitPromise(300);
   }
 }
 
