@@ -37,7 +37,6 @@ async function writeObjToFile(filepath, obj) {
   let jsonstring = JSON.stringify(obj);
   await fs.promises.writeFile(filepath, jsonstring, "utf-8");
 }
-
 async function rungetjson() {
   const filepath = "scrapedata/unsplash.json";
   const query = "bar";
@@ -53,6 +52,34 @@ async function rungetjson() {
   }
 }
 
-rungetjson();
+//rungetjson();
 
-async function getImageFromURLAndSaveToFile(url, file) {}
+async function rungetimgs() {
+  const foldername = "unsplashimages";
+  const fileSuffix = ".jpg";
+  let arrOfURLsAndIds = [
+    {
+      url:
+        "https://user-images.githubusercontent.com/1436181/68179592-93466000-ffe4-11e9-971f-9423aa6b743b.png",
+      id: "test1",
+    },
+  ];
+
+  for (let i = 0; i < arrOfURLsAndIds.length; i++) {
+    const el = arrOfURLsAndIds[i];
+    await SaveImgFromURLToFile(el.url, `${foldername}/${el.id}${fileSuffix}`);
+  }
+}
+async function SaveImgFromURLToFile(url, filepath) {
+  let imageResponse = await axios({
+    url,
+    method: "GET",
+    responseType: "arraybuffer",
+  });
+  if (imageResponse && imageResponse.data) {
+    let buffer = Buffer.from(imageResponse.data, "base64");
+    await fs.promises.writeFile(filepath, buffer);
+  }
+}
+
+rungetimgs();
