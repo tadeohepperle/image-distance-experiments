@@ -82,7 +82,7 @@ async function generateHTMLPageFromDistanceMatrix(
 async function run(imageToCompare, fingerprinterModul, prefix) {
   // read all imageFileNamesFromFolder
 
-  const IMAGEFOLDERPATH = "./images";
+  const IMAGEFOLDERPATH = "./unsplashimages";
   let imageFilenames = await getImageFileNamesFromFolder(IMAGEFOLDERPATH);
   let distanceMatrix = await distanceMatrixFromImageFilePaths(
     imageFilenames,
@@ -92,11 +92,11 @@ async function run(imageToCompare, fingerprinterModul, prefix) {
   console.log(distanceMatrix);
   await generateHTMLPageFromDistanceMatrix(
     distanceMatrix,
-    "./images/" + imageToCompare,
+    "./unsplashimages/" + imageToCompare,
     prefix
   );
   console.log("done.");
 }
 
-run("h1.jpg", henrikfingerprinter, "henrik");
-run("h1.jpg", tadeofingerprinter, "tadeo");
+//run("h1.jpg", henrikfingerprinter, "henrik");
+run("LVuwYF-7POM.jpg", tadeofingerprinter, "tadeo");

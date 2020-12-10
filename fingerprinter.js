@@ -6,10 +6,16 @@ const LOWRESWIDTH = 10;
 const LOWRESHEIGHT = 10;
 
 async function ReadImageAndConvertToHistograms(imageFileName) {
-  let img = await readImageFromFile(imageFileName);
-  let pixelList = ImageToLowResolutionPixelList(img);
-  let histograms = PixelListToHistograms(pixelList);
-  return histograms;
+  try {
+    let img = await readImageFromFile(imageFileName);
+    console.log("read image " + imageFileName);
+    let pixelList = ImageToLowResolutionPixelList(img);
+    let histograms = PixelListToHistograms(pixelList);
+    return histograms;
+  } catch (ex) {
+    // console.log(ex);
+    return null;
+  }
 }
 
 function PixelListToHistograms(pixelList) {
@@ -115,19 +121,24 @@ function EMDbetweenHistograms(inputhist1, inputhist2) {
 }
 
 function DifferenceBetweenHistogramObjects(fingerprint1, fingerprint2) {
-  //console.log(fingerprint1, fingerprint2);
-  let keys = Object.keys(fingerprint1);
-  differencesObject = {};
-  keys.forEach((key) => {
-    let histdiff = Math.abs(
-      EMDbetweenHistograms(fingerprint1[key], fingerprint2[key])
-    );
-    differencesObject[key] = histdiff;
-  });
-  let average =
-    keys.reduce((acc, key) => acc + differencesObject[key], 0) / keys.length;
-  return average;
-  //return { average, differencesObject };
+  try {
+    //console.log(fingerprint1, fingerprint2);
+    let keys = Object.keys(fingerprint1);
+    differencesObject = {};
+    keys.forEach((key) => {
+      let histdiff = Math.abs(
+        EMDbetweenHistograms(fingerprint1[key], fingerprint2[key])
+      );
+      differencesObject[key] = histdiff;
+    });
+    let average =
+      keys.reduce((acc, key) => acc + differencesObject[key], 0) / keys.length;
+
+    return average;
+    //return { average, differencesObject };
+  } catch (ex) {
+    return 2;
+  }
 }
 
 module.exports.fingerprint = ReadImageAndConvertToHistograms;
